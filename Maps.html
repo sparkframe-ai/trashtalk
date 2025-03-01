@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RecycMap</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h2 {
+            color: #4CAF50;
+            font-size: 24px;
+        }
+
+        #map {
+            height: 500px;
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Recycling Centers Near You</h2>
+    <div id="map"></div>
+
+    <script>
+        // Initialize the map
+        var map = L.map('map').setView([42.37201157471317, -71.09745511643673], 12);
+
+        // Add visually appealing CartoDB tiles
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19
+        }).addTo(map);
+
+        // These will be the locations
+        var locations = [
+            { coords: [42.37201157471317, -71.09745511643673], name: "Cambridge Recycling Center" },
+            { coords: [42.337611376161945, -71.04193784826535], name: "Recycle Boston" },
+            { coords: [42.30818893356546, -71.07457481554526], name: "Four Corners Recycling Corporation" },
+            { coords: [42.37760407871713, -71.20892901373931], name: "Watertown Recycling Center" },
+            { coords: [42.29194079345776, -71.13281652459145], name: "Roslindale Redemption Center" },
+            { coords: [42.41313424183488, -71.05665572875449], name: "Le Redemption Center" },
+            { coords: [42.53045094220156, -70.92203467051112], name: "Peabody Redemption Center" },
+            { coords: [42.39463033435153, -71.22319386471347], name: "Waltham Bottle and Can Return" },
+            { coords: [42.30578582842487, -71.07954896699887], name: "Brook Atlantic Bottles and Cans" },
+            { coords: [42.432517552649074, -71.06062117614185], name: "Dan's Redemption Center" }
+        ];
+
+        // Add markers to the map
+        locations.forEach(location => {
+            L.marker(location.coords).addTo(map)
+                .bindPopup(`<b>${location.name}</b>`);
+        });
+
+    </script>
+
+</body>
+</html>
